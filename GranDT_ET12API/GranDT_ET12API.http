@@ -1,0 +1,11 @@
+@GranDT_ET12API_HostAddress = http://localhost:5118
+
+GET {{GranDT_ET12API_HostAddress}}/todos/
+Accept: application/json
+
+###
+
+GET {{GranDT_ET12API_HostAddress}}/todos/1
+Accept: application/json
+
+###
