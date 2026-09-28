@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GranDT_ET12.Modelos
+﻿namespace GranDT_ET12.Modelos
 {
-    internal class DetallePlantilla
+    public class DetallePlantilla
     {
+        public int PlantillaId { get; set; }
+        public int FutbolistaId { get; set; }
+        public bool EsTitular { get; set; }
     }
 }

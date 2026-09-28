@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using GranDT_ET12.Modelos;
+
 
 namespace GranDT_ET12.Repositorios.interfaces
 {
-    internal interface IPuntuacionRepositorio
+    public interface IPuntuacionRepositorio
     {
+        int InsertarPuntuacion(PuntuacionFecha puntuacion);
+        bool ExistePuntuacionEnFecha(int futbolistaId, int numeroFecha);
+        IEnumerable<PuntuacionFecha> ObtenerPuntuacionesPorFutbolista(int futbolistaId);
+        IEnumerable<PuntuacionFecha> ObtenerPuntuacionesPorFecha(int numeroFecha);
     }
 }

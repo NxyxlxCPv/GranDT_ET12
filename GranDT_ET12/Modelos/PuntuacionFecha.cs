@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GranDT_ET12.Modelos
+﻿namespace GranDT_ET12.Modelos
 {
-    internal class PuntuacionFecha
+    public class PuntuacionFecha
     {
+        public int Id { get; set; }
+        public int FutbolistaId { get; set; }
+        public int NumeroFecha { get; set; }
+        public decimal Puntaje { get; set; }
     }
 }

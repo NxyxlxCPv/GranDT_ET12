@@ -1,10 +1,14 @@
-﻿using System;
+﻿using GranDT_ET12.Modelos;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace GranDT_ET12.Repositorios.interfaces
 {
-    internal interface IPlantillaRepositorio
+    public interface IPlantillaRepositorio
     {
+        int CrearPlantilla(Plantilla plantilla);
+        Plantilla? ObtenerPorUsuarioId(int usuarioId);
+        Plantilla? ObtenerPorId(int id);
     }
 }
