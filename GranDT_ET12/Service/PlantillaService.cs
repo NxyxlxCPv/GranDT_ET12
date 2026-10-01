@@ -71,11 +71,11 @@ namespace GranDT_ET12.Service
                 }
             }
 
-            int cantidadJugadores = _detalleRepositorio.ContarJugadoresEnPlantilla(plantillaId);
-            if (cantidadJugadores >= plantilla.CantidadMaximaJugadores)
-            {
-                throw new ReglaNegocioException("La plantilla ya tiene el maximo de " + plantilla.CantidadMaximaJugadores + " jugadores.");
-            }
+            //int cantidadJugadores = _detalleRepositorio.ContarJugadoresEnPlantilla(plantillaId);
+            //if (cantidadJugadores >= plantilla.CantidadMaximaJugadores)
+            //{
+            //    throw new ReglaNegocioException("La plantilla ya tiene el maximo de " + plantilla.CantidadMaximaJugadores + " jugadores.");
+            //}
 
             DetallePlantilla nuevo = new DetallePlantilla();
             nuevo.PlantillaId = plantillaId;
