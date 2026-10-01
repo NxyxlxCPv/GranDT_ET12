@@ -22,10 +22,10 @@ namespace GranDT_ET12.Service
             {
                 throw new ReglaNegocioException("La fecha tiene que estar entre " + Constantes.FechaMinima + " y " + Constantes.FechaMaxima);
             }
-            if (puntuacion.Puntaje < Constantes.PuntajeMinimo || puntuacion.Puntaje > Constantes.PuntajeMaximo)
-            {
-                throw new ReglaNegocioException("El puntaje tiene que estar entre " + Constantes.PuntajeMinimo + " y " + Constantes.PuntajeMaximo);
-            }
+            //if (puntuacion.Puntaje < Constantes.PuntajeMinimo || puntuacion.Puntaje > Constantes.PuntajeMaximo)
+            //{
+            //    throw new ReglaNegocioException("El puntaje tiene que estar entre " + Constantes.PuntajeMinimo + " y " + Constantes.PuntajeMaximo);
+            //}
             if (_futbolistaRepositorio.ObtenerPorId(puntuacion.FutbolistaId) == null)
             {
                 throw new ReglaNegocioException("El futbolista indicado no existe.");
