@@ -1,48 +1,42 @@
-using Microsoft.AspNetCore.Http.HttpResults;
-using System.Text.Json.Serialization;
+using GranDT_ET12.Repositorios;
+using GranDT_ET12.Repositorios.interfaces;
+using GranDT_ET12.Service;
+using GranDT_ET12.Service.interfaces;
 
-var builder = WebApplication.CreateSlimBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.ConfigureHttpJsonOptions(options =>
-{
-    options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
-});
+builder.Services.AddControllers();
+builder.Services.AddSwaggerGen();
 
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+// Repositorios
+// "x => new ...(cadena)" significa: cuando alguien pida esta interfaz, se crea este repositorio con la cadena de conexion
+string cadena = BdConexion.ObtenerConnectionString();
+builder.Services.AddScoped<IUsuarioRepositorio>(x => new UsuarioRepositorio(cadena));
+builder.Services.AddScoped<IEquipoRepositorio>(x => new EquipoRepositorio(cadena));
+builder.Services.AddScoped<IFutbolistaRepositorio>(x => new FutbolistaRepositorio(cadena));
+builder.Services.AddScoped<IPlantillaRepositorio>(x => new PlantillaRepositorio(cadena));
+builder.Services.AddScoped<IDetallePlantillaRepositorio>(x => new DetallePlantillaRepositorio(cadena));
+builder.Services.AddScoped<IPuntuacionRepositorio>(x => new PuntuacionRepositorio(cadena));
+
+// Servicios (logica de negocio)
+builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IEquipoService, EquipoService>();
+builder.Services.AddScoped<IFutbolistaService, FutbolistaService>();
+builder.Services.AddScoped<IPuntuacionService, PuntuacionService>();
+builder.Services.AddScoped<IPlantillaService, PlantillaService>();
 
 var app = builder.Build();
 
+// Si ocurre un error que no controlamos, se responde 500 en formato JSON (ver ErrorController)
+app.UseExceptionHandler("/error");
+
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI(); // documentacion de la API en /swagger
 }
 
-Todo[] sampleTodos =
-[
-    new(1, "Walk the dog"),
-    new(2, "Do the dishes", DateOnly.FromDateTime(DateTime.Now)),
-    new(3, "Do the laundry", DateOnly.FromDateTime(DateTime.Now.AddDays(1))),
-    new(4, "Clean the bathroom"),
-    new(5, "Clean the car", DateOnly.FromDateTime(DateTime.Now.AddDays(2)))
-];
-
-var todosApi = app.MapGroup("/todos");
-todosApi.MapGet("/", () => sampleTodos)
-        .WithName("GetTodos");
-
-todosApi.MapGet("/{id}", Results<Ok<Todo>, NotFound> (int id) =>
-    sampleTodos.FirstOrDefault(a => a.Id == id) is { } todo
-        ? TypedResults.Ok(todo)
-        : TypedResults.NotFound())
-    .WithName("GetTodoById");
+app.MapControllers();
 
 app.Run();
-
-public record Todo(int Id, string? Title, DateOnly? DueBy = null, bool IsComplete = false);
-
-[JsonSerializable(typeof(Todo[]))]
-internal partial class AppJsonSerializerContext : JsonSerializerContext
-{
-
-}
