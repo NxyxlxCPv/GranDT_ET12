@@ -30,7 +30,7 @@ namespace GranDT_ET12.Service
             {
                 throw new ReglaNegocioException("El equipo indicado no existe.");
             }
-
+            //TODO traer cantidad
             int cantidadFutbolistas = _futbolistaRepositorio.ObtenerTodos().Count();
             if (cantidadFutbolistas >= Constantes.MaxFutbolistas)
             {

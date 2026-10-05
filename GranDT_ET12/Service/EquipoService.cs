@@ -16,11 +16,9 @@ namespace GranDT_ET12.Service
 
         public int Crear(Equipo equipo)
         {
-            if (equipo.Nombre == "")
-            {
-                throw new ReglaNegocioException("El nombre del equipo es obligatorio.");
-            }
-
+            if (string.IsNullOrEmpty(equipo.Nombre))
+               throw new ReglaNegocioException("El nombre del equipo es obligatorio.");
+            
             List<Equipo> equipos = _equipoRepositorio.ObtenerTodos().ToList();
             if (equipos.Count >= Constantes.MaxEquipos)
             {
@@ -38,10 +36,7 @@ namespace GranDT_ET12.Service
             return _equipoRepositorio.InsertarEquipo(equipo);
         }
 
-        public Equipo? ObtenerPorId(int id)
-        {
-            return _equipoRepositorio.ObtenerPorId(id);
-        }
+        public Equipo? ObtenerPorId(int id) => _equipoRepositorio.ObtenerPorId(id);
 
         public IEnumerable<Equipo> ObtenerTodos()
         {
