@@ -15,4 +15,11 @@
     <Folder Include="Service\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="BDGranDT- SP  y Funciones.sql">
+      <BuildAction>None</BuildAction>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

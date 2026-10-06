@@ -1,3 +1,4 @@
+using System.Data;
 using Dapper;
 using GranDT_ET12.Modelos;
 using GranDT_ET12.Repositorios.interfaces;
@@ -17,9 +18,12 @@ namespace GranDT_ET12.Repositorios
         public bool AgregarJugador(DetallePlantilla detalle)
         {
             using var conexion = new MySqlConnection(_connectionString);
-            const string sql = @"INSERT INTO DetallePlantilla (PlantillaId, FutbolistaId, EsTitular)
-                                 VALUES (@PlantillaId, @FutbolistaId, @EsTitular)";
-            return conexion.Execute(sql, detalle) > 0;
+            return conexion.Execute("SP_AgregarJugadorPlantilla", new
+            {
+                p_PlantillaId = detalle.PlantillaId,
+                p_FutbolistaId = detalle.FutbolistaId,
+                p_EsTitular = detalle.EsTitular
+            }, commandType: CommandType.StoredProcedure) > 0;
         }
 
         public bool EliminarJugador(int plantillaId, int futbolistaId)

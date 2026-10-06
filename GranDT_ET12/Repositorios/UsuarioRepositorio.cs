@@ -1,3 +1,4 @@
+using System.Data;
 using Dapper;
 using GranDT_ET12.Modelos;
 using GranDT_ET12.Repositorios.interfaces;
@@ -17,10 +18,15 @@ namespace GranDT_ET12.Repositorios
         public int InsertarUsuario(Usuario usuario)
         {
             using var conexion = new MySqlConnection(_connectionString);
-            const string sql = @"INSERT INTO Usuario (Nombre, Apellido, Email, FechaNacimiento, Password, EsAdministrador)
-                                 VALUES (@Nombre, @Apellido, @Email, @FechaNacimiento, @Password, @EsAdministrador);
-                                 SELECT LAST_INSERT_ID();";
-            return conexion.ExecuteScalar<int>(sql, usuario);
+            return conexion.ExecuteScalar<int>("SP_RegistrarUsuario", new
+            {
+                p_Nombre = usuario.Nombre,
+                p_Apellido = usuario.Apellido,
+                p_Email = usuario.Email,
+                p_FechaNacimiento = usuario.FechaNacimiento,
+                p_Password = usuario.Password,
+                p_EsAdministrador = usuario.EsAdministrador
+            }, commandType: CommandType.StoredProcedure);
         }
 
         public Usuario? ObtenerPorId(int id)

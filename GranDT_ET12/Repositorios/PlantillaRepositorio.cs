@@ -1,3 +1,4 @@
+using System.Data;
 using Dapper;
 using GranDT_ET12.Modelos;
 using GranDT_ET12.Repositorios.interfaces;
@@ -17,16 +18,24 @@ namespace GranDT_ET12.Repositorios
         public int CrearPlantilla(Plantilla plantilla)
         {
             using var conexion = new MySqlConnection(_connectionString);
-            const string sql = @"INSERT INTO Plantilla (UsuarioId, PresupuestoMaximo, CantidadMaximaJugadores)
-                                 VALUES (@UsuarioId, @PresupuestoMaximo, @CantidadMaximaJugadores);
-                                 SELECT LAST_INSERT_ID();";
-            return conexion.ExecuteScalar<int>(sql, plantilla);
+            return conexion.ExecuteScalar<int>("SP_RegistrarPlantilla", new
+            {
+                p_UsuarioId = plantilla.UsuarioId,
+                p_PresupuestoMaximo = plantilla.PresupuestoMaximo,
+                p_CantidadMaximaJugadores = plantilla.CantidadMaximaJugadores
+            }, commandType: CommandType.StoredProcedure);
         }
 
         public IEnumerable<Plantilla> ObtenerPorUsuarioId(int usuarioId)
         {
             using var conexion = new MySqlConnection(_connectionString);
             return conexion.Query<Plantilla>("SELECT * FROM Plantilla WHERE UsuarioId = @usuarioId", new { usuarioId }).ToList();
+        }
+
+        public decimal ObtenerGastoTotalPlantilla(int plantillaId)
+        {
+            using var conexion = new MySqlConnection(_connectionString);
+            return conexion.ExecuteScalar<decimal>("SELECT FN_CalcularGastoPlantilla(@plantillaId)", new { plantillaId });
         }
 
         public Plantilla? ObtenerPorId(int id)

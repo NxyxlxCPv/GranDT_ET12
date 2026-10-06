@@ -9,5 +9,6 @@ namespace GranDT_ET12.Repositorios.interfaces
         bool ExistePuntuacionEnFecha(int futbolistaId, int numeroFecha);
         IEnumerable<PuntuacionFecha> ObtenerPuntuacionesPorFutbolista(int futbolistaId);
         IEnumerable<PuntuacionFecha> ObtenerPuntuacionesPorFecha(int numeroFecha);
+        decimal ObtenerPuntuacionPlantillaFecha(int plantillaId, int numeroFecha);
     }
 }

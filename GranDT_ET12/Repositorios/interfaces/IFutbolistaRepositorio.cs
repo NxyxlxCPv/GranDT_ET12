@@ -12,5 +12,6 @@ namespace GranDT_ET12.Repositorios.interfaces
         IEnumerable<Futbolista> ObtenerTodos();
         IEnumerable<Futbolista> ObtenerPorEquipo(int equipoId);
         IEnumerable<Futbolista> ObtenerPorPosicion(string tipo);
+        int ContarFutbolistas();
     }
 }

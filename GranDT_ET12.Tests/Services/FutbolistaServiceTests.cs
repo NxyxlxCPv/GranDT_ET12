@@ -45,8 +45,8 @@ namespace GranDT_ET12.Tests.Services
                                   .Returns(new Equipo { Id = 1, Nombre = "Inter Miami" });
 
             // Simular lista de futbolistas actual por debajo del límite
-            _futbolistaRepositorioMock.Setup(repo => repo.ObtenerTodos())
-                                      .Returns(new List<Futbolista>());
+            _futbolistaRepositorioMock.Setup(repo => repo.ContarFutbolistas())
+                                      .Returns(0);
 
             // Simular inserción exitosa
             _futbolistaRepositorioMock.Setup(repo => repo.InsertarFutbolista(futbolista))
@@ -58,7 +58,7 @@ namespace GranDT_ET12.Tests.Services
             // Assert
             Assert.Equal(10, resultadoId);
             _equipoRepositorioMock.Verify(repo => repo.ObtenerPorId(futbolista.EquipoId), Times.Once);
-            _futbolistaRepositorioMock.Verify(repo => repo.ObtenerTodos(), Times.Once);
+            _futbolistaRepositorioMock.Verify(repo => repo.ContarFutbolistas(), Times.Once);
             _futbolistaRepositorioMock.Verify(repo => repo.InsertarFutbolista(futbolista), Times.Once);
         }
 
@@ -81,7 +81,7 @@ namespace GranDT_ET12.Tests.Services
             var excepcion = Assert.Throws<ReglaNegocioException>(() => _futbolistaService.Crear(futbolista));
 
             Assert.Equal("El equipo indicado no existe.", excepcion.Message);
-            _futbolistaRepositorioMock.Verify(repo => repo.ObtenerTodos(), Times.Never);
+            _futbolistaRepositorioMock.Verify(repo => repo.ContarFutbolistas(), Times.Never);
             _futbolistaRepositorioMock.Verify(repo => repo.InsertarFutbolista(It.IsAny<Futbolista>()), Times.Never);
         }
 

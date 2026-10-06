@@ -1,3 +1,4 @@
+using System.Data;
 using Dapper;
 using GranDT_ET12.Modelos;
 using GranDT_ET12.Repositorios.interfaces;
@@ -17,10 +18,12 @@ public class PuntuacionRepositorio : IPuntuacionRepositorio
     public int InsertarPuntuacion(PuntuacionFecha puntuacion)
     {
         using var conexion = new MySqlConnection(_connectionString);
-        const string sql = @"INSERT INTO PuntuacionFecha (FutbolistaId, NumeroFecha, Puntaje)
-                                 VALUES (@FutbolistaId, @NumeroFecha, @Puntaje);
-                                 SELECT LAST_INSERT_ID();";
-        return conexion.ExecuteScalar<int>(sql, puntuacion);
+        return conexion.ExecuteScalar<int>("SP_RegistrarPuntuacion", new
+        {
+            p_FutbolistaId = puntuacion.FutbolistaId,
+            p_NumeroFecha = puntuacion.NumeroFecha,
+            p_Puntaje = puntuacion.Puntaje
+        }, commandType: CommandType.StoredProcedure);
     }
 
     public bool ExistePuntuacionEnFecha(int futbolistaId, int numeroFecha)
@@ -42,6 +45,12 @@ public class PuntuacionRepositorio : IPuntuacionRepositorio
     {
         using var conexion = new MySqlConnection(_connectionString);
         return conexion.Query<PuntuacionFecha>("SELECT * FROM PuntuacionFecha WHERE NumeroFecha = @numeroFecha", new { numeroFecha }).ToList();
+    }
+
+    public decimal ObtenerPuntuacionPlantillaFecha(int plantillaId, int numeroFecha)
+    {
+        using var conexion = new MySqlConnection(_connectionString);
+        return conexion.ExecuteScalar<decimal>("SELECT FN_CalcularPuntuacionPlantillaFecha(@plantillaId, @numeroFecha)", new { plantillaId, numeroFecha });
     }
 
 }
