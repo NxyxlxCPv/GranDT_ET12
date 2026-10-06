@@ -26,6 +26,11 @@ namespace GranDT_ET12.Service
             //{
             //    throw new ReglaNegocioException("La cotizacion debe ser mayor a 0 y menor o igual a " + Constantes.CotizacionMaxima);
             //}
+            if (_futbolistaRepositorio.ExisteFutbolista(futbolista.Id))
+            {
+                throw new InvalidOperationException("Ya existe un futbolista registrado con el ID especificado.");
+            }
+
             if (_equipoRepositorio.ObtenerPorId(futbolista.EquipoId) == null)
             {
                 throw new ReglaNegocioException("El equipo indicado no existe.");

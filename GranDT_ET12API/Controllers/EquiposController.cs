@@ -29,6 +29,10 @@ namespace GranDT_ET12API.Controllers
             {
                 return BadRequest(new { error = ex.Message });
             }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { mensaje = ex.Message });
+            }
         }
 
         // GET /equipos

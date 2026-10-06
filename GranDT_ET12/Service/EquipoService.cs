@@ -1,4 +1,5 @@
 using GranDT_ET12.Service.interfaces;
+using System;
 using GranDT_ET12.Configuracion;
 using GranDT_ET12.Modelos;
 using GranDT_ET12.Repositorios.interfaces;
@@ -31,6 +32,11 @@ namespace GranDT_ET12.Service
                 {
                     throw new ReglaNegocioException("Ya existe un equipo con ese nombre.");
                 }
+            }
+
+            if (_equipoRepositorio.ExisteEquipo(equipo.Id))
+            {
+                throw new InvalidOperationException("Ya existe un equipo registrado con el ID especificado.");
             }
 
             return _equipoRepositorio.InsertarEquipo(equipo);

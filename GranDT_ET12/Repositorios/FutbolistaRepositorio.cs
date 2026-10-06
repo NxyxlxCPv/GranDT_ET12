@@ -37,6 +37,12 @@ namespace GranDT_ET12.Repositorios
             return conexion.ExecuteScalar<int>("SELECT FN_ContarFutbolistas()");
         }
 
+        public bool ExisteFutbolista(int id)
+        {
+            using var conexion = new MySqlConnection(_connectionString);
+            return conexion.ExecuteScalar<bool>("SELECT FN_ExisteFutbolista(@id)", new { id });
+        }
+
         public Futbolista? ObtenerPorId(int id)
         {
             using var conexion = new MySqlConnection(_connectionString);

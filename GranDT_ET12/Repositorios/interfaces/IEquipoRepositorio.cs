@@ -10,5 +10,6 @@ namespace GranDT_ET12.Repositorios.interfaces
         int InsertarEquipo(Equipo equipo);
         Equipo? ObtenerPorId(int id);
         IEnumerable<Equipo> ObtenerTodos();
+        bool ExisteEquipo(int id);
     }
 }

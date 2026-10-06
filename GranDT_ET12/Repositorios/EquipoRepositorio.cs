@@ -28,6 +28,12 @@ namespace GranDT_ET12.Repositorios
             return conexion.QueryFirstOrDefault<Equipo>("SELECT * FROM Equipo WHERE Id = @id", new { id });
         }
 
+        public bool ExisteEquipo(int id)
+        {
+            using var conexion = new MySqlConnection(_connectionString);
+            return conexion.ExecuteScalar<bool>("SELECT FN_ExisteEquipo(@id)", new { id });
+        }
+
         public IEnumerable<Equipo> ObtenerTodos()
         {
             using var conexion = new MySqlConnection(_connectionString);

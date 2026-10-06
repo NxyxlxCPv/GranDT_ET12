@@ -13,5 +13,6 @@ namespace GranDT_ET12.Repositorios.interfaces
         IEnumerable<Futbolista> ObtenerPorEquipo(int equipoId);
         IEnumerable<Futbolista> ObtenerPorPosicion(string tipo);
         int ContarFutbolistas();
+        bool ExisteFutbolista(int id);
     }
 }
