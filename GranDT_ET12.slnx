@@ -9,7 +9,6 @@
     <File Path="README.md" />
   </Folder>
   <Folder Name="/Scripts/">
-    <File Path="../BDGranDT- SP  y Funciones.sql" />
     <File Path="../BDGranDT-Inserts.sql" />
     <File Path="../BDGranDT-Mysql.sql" />
     <File Path="../BDGranDT-Triggers.sql" />
