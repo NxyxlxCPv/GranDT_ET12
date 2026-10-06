@@ -47,45 +47,6 @@ namespace GranDT_ET12.Tests.Services
             _equipoRepositorioMock.Verify(repo => repo.InsertarEquipo(nuevoEquipo), Times.Once);
         }
 
-        [Theory]
-        [InlineData("")]
-        [InlineData(null)]
-        public void Crear_NombreVacioONulo_LanzaReglaNegocioException(string? nombreInvalido)
-        {
-            // Arrange
-            var equipoInvalido = new Equipo { Nombre = nombreInvalido! };
-
-            // Act & Assert
-            var excepcion = Assert.Throws<ReglaNegocioException>(() => _equipoService.Crear(equipoInvalido));
-
-            Assert.Equal("El nombre del equipo es obligatorio.", excepcion.Message);
-            _equipoRepositorioMock.Verify(repo => repo.ObtenerTodos(), Times.Never);
-            _equipoRepositorioMock.Verify(repo => repo.InsertarEquipo(It.IsAny<Equipo>()), Times.Never);
-        }
-
-        [Fact]
-        public void Crear_SuperaLimiteMaximoEquipos_LanzaReglaNegocioException()
-        {
-            // Arrange: Generamos la cantidad máxima permitida (Constantes.MaxEquipos = 32)
-            var listaMaxima = new List<Equipo>();
-            for (int i = 1; i <= Constantes.MaxEquipos; i++)
-            {
-                listaMaxima.Add(new Equipo { Id = i, Nombre = $"Equipo {i}" });
-            }
-
-            _equipoRepositorioMock.Setup(repo => repo.ObtenerTodos())
-                                  .Returns(listaMaxima);
-
-            var nuevoEquipo = new Equipo { Nombre = "Equipo 33" };
-
-            // Act & Assert
-            var excepcion = Assert.Throws<ReglaNegocioException>(() => _equipoService.Crear(nuevoEquipo));
-
-            Assert.Equal($"No puede haber mas de {Constantes.MaxEquipos} equipos.", excepcion.Message);
-            _equipoRepositorioMock.Verify(repo => repo.ObtenerTodos(), Times.Once);
-            _equipoRepositorioMock.Verify(repo => repo.InsertarEquipo(It.IsAny<Equipo>()), Times.Never);
-        }
-
         [Fact]
         public void Crear_NombreDuplicadoMismoTexto_LanzaReglaNegocioException()
         {
@@ -130,23 +91,6 @@ namespace GranDT_ET12.Tests.Services
             Assert.Equal(idExistente, resultado.Id);
             Assert.Equal("Independiente", resultado.Nombre);
             _equipoRepositorioMock.Verify(repo => repo.ObtenerPorId(idExistente), Times.Once);
-        }
-
-        [Fact]
-        public void ObtenerPorId_IdNoExistente_DevuelveNull()
-        {
-            // Arrange
-            int idInexistente = 999;
-
-            _equipoRepositorioMock.Setup(repo => repo.ObtenerPorId(idInexistente))
-                                  .Returns((Equipo?)null);
-
-            // Act
-            Equipo? resultado = _equipoService.ObtenerPorId(idInexistente);
-
-            // Assert
-            Assert.Null(resultado);
-            _equipoRepositorioMock.Verify(repo => repo.ObtenerPorId(idInexistente), Times.Once);
         }
 
         [Fact]

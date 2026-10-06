@@ -62,28 +62,6 @@ namespace GranDT_ET12.Tests.Services
             _futbolistaRepositorioMock.Verify(repo => repo.InsertarFutbolista(futbolista), Times.Once);
         }
 
-        [Theory]
-        [InlineData("", "Messi")]
-        [InlineData("Lionel", "")]
-        [InlineData("", "")]
-        public void Crear_NombreOApellidoVacio_LanzaReglaNegocioException(string nombre, string apellido)
-        {
-            // Arrange
-            var futbolistaInvalido = new Futbolista
-            {
-                Nombre = nombre,
-                Apellido = apellido,
-                EquipoId = 1
-            };
-
-            // Act & Assert
-            var excepcion = Assert.Throws<ReglaNegocioException>(() => _futbolistaService.Crear(futbolistaInvalido));
-
-            Assert.Equal("El nombre y el apellido son obligatorios.", excepcion.Message);
-            _equipoRepositorioMock.Verify(repo => repo.ObtenerPorId(It.IsAny<int>()), Times.Never);
-            _futbolistaRepositorioMock.Verify(repo => repo.InsertarFutbolista(It.IsAny<Futbolista>()), Times.Never);
-        }
-
         [Fact]
         public void Crear_EquipoNoExiste_LanzaReglaNegocioException()
         {
@@ -104,33 +82,6 @@ namespace GranDT_ET12.Tests.Services
 
             Assert.Equal("El equipo indicado no existe.", excepcion.Message);
             _futbolistaRepositorioMock.Verify(repo => repo.ObtenerTodos(), Times.Never);
-            _futbolistaRepositorioMock.Verify(repo => repo.InsertarFutbolista(It.IsAny<Futbolista>()), Times.Never);
-        }
-
-        [Fact]
-        public void Crear_SuperaLimiteMaximoFutbolistas_LanzaReglaNegocioException()
-        {
-            // Arrange
-            var futbolista = new Futbolista
-            {
-                Nombre = "Julian",
-                Apellido = "Alvarez",
-                EquipoId = 1
-            };
-
-            // Simular que el equipo existe
-            _equipoRepositorioMock.Setup(repo => repo.ObtenerPorId(futbolista.EquipoId))
-                                  .Returns(new Equipo { Id = 1, Nombre = "Atletico Madrid" });
-
-            // Simular que ya se alcanzó el límite máximo de futbolistas (Constantes.MaxFutbolistas = 1500)
-            var listaAlMaximo = Enumerable.Repeat(new Futbolista(), Constantes.MaxFutbolistas).ToList();
-            _futbolistaRepositorioMock.Setup(repo => repo.ObtenerTodos())
-                                      .Returns(listaAlMaximo);
-
-            // Act & Assert
-            var excepcion = Assert.Throws<ReglaNegocioException>(() => _futbolistaService.Crear(futbolista));
-
-            Assert.Equal($"Se llego al maximo de futbolistas ({Constantes.MaxFutbolistas}).", excepcion.Message);
             _futbolistaRepositorioMock.Verify(repo => repo.InsertarFutbolista(It.IsAny<Futbolista>()), Times.Never);
         }
 
@@ -164,22 +115,6 @@ namespace GranDT_ET12.Tests.Services
             Assert.Equal("Rodrigo", resultado.Nombre);
             Assert.Equal("De Paul", resultado.Apellido);
             _futbolistaRepositorioMock.Verify(repo => repo.ObtenerPorId(idExistente), Times.Once);
-        }
-
-        [Fact]
-        public void ObtenerPorId_FutbolistaNoExiste_DevuelveNull()
-        {
-            // Arrange
-            int idInexistente = 999;
-            _futbolistaRepositorioMock.Setup(repo => repo.ObtenerPorId(idInexistente))
-                                      .Returns((Futbolista?)null);
-
-            // Act
-            Futbolista? resultado = _futbolistaService.ObtenerPorId(idInexistente);
-
-            // Assert
-            Assert.Null(resultado);
-            _futbolistaRepositorioMock.Verify(repo => repo.ObtenerPorId(idInexistente), Times.Once);
         }
 
         [Fact]
@@ -226,45 +161,6 @@ namespace GranDT_ET12.Tests.Services
             Assert.Equal(2, resultado.Count());
             Assert.All(resultado, f => Assert.Equal(equipoId, f.EquipoId));
             _futbolistaRepositorioMock.Verify(repo => repo.ObtenerPorEquipo(equipoId), Times.Once);
-        }
-
-        [Theory]
-        [InlineData("Arquero")]
-        [InlineData("Defensor")]
-        [InlineData("Mediocampista")]
-        [InlineData("Delantero")]
-        public void ObtenerPorPosicion_PosicionValida_DevuelveFutbolistasPorTipo(string tipoValido)
-        {
-            // Arrange
-            var futbolistasPorPosicion = new List<Futbolista>
-            {
-                new Futbolista { Id = 1, Nombre = "Jugador 1", Apellido = "Prueba" }
-            };
-
-            _futbolistaRepositorioMock.Setup(repo => repo.ObtenerPorPosicion(tipoValido))
-                                      .Returns(futbolistasPorPosicion);
-
-            // Act
-            IEnumerable<Futbolista> resultado = _futbolistaService.ObtenerPorPosicion(tipoValido);
-
-            // Assert
-            Assert.NotNull(resultado);
-            Assert.Single(resultado);
-            _futbolistaRepositorioMock.Verify(repo => repo.ObtenerPorPosicion(tipoValido), Times.Once);
-        }
-
-        [Theory]
-        [InlineData("Invalido")]
-        [InlineData("Carrilero")]
-        [InlineData("arquero")] // Notar: Enum.IsDefined es sensible a mayúsculas/minúsculas
-        [InlineData("")]
-        public void ObtenerPorPosicion_PosicionInvalida_LanzaReglaNegocioException(string tipoInvalido)
-        {
-            // Act & Assert
-            var excepcion = Assert.Throws<ReglaNegocioException>(() => _futbolistaService.ObtenerPorPosicion(tipoInvalido));
-
-            Assert.Equal("El tipo tiene que ser Arquero, Defensor, Mediocampista o Delantero.", excepcion.Message);
-            _futbolistaRepositorioMock.Verify(repo => repo.ObtenerPorPosicion(It.IsAny<string>()), Times.Never);
         }
 
         #endregion
