@@ -7,10 +7,10 @@ namespace GranDT_ET12.Service
 {
     public class PlantillaService : IPlantillaService
     {
-        private IPlantillaRepositorio _plantillaRepositorio;
-        private IDetallePlantillaRepositorio _detalleRepositorio;
-        private IUsuarioRepositorio _usuarioRepositorio;
-        private IFutbolistaRepositorio _futbolistaRepositorio;
+        private readonly IPlantillaRepositorio _plantillaRepositorio;
+        private readonly IDetallePlantillaRepositorio _detalleRepositorio;
+        private readonly IUsuarioRepositorio _usuarioRepositorio;
+        private readonly IFutbolistaRepositorio _futbolistaRepositorio;
 
         public PlantillaService(
             IPlantillaRepositorio plantillaRepositorio,
@@ -49,8 +49,7 @@ namespace GranDT_ET12.Service
             return _plantillaRepositorio.ObtenerPorUsuarioId(usuarioId);
         }
 
-        // Muchos a muchos: agrega un futbolista a la plantilla
-        // (pendiente: validar el presupuesto y los tipos de jugador de los titulares)
+        // Muchos a muchos: agrega un futbolista a la plantilla validando reglas de negocio
         public void AgregarJugador(int plantillaId, int futbolistaId, bool esTitular)
         {
             Plantilla? plantilla = _plantillaRepositorio.ObtenerPorId(plantillaId);
@@ -58,29 +57,48 @@ namespace GranDT_ET12.Service
             {
                 throw new ReglaNegocioException("La plantilla indicada no existe.");
             }
-            if (_futbolistaRepositorio.ObtenerPorId(futbolistaId) == null)
+
+            Futbolista? futbolista = _futbolistaRepositorio.ObtenerPorId(futbolistaId);
+            if (futbolista == null)
             {
                 throw new ReglaNegocioException("El futbolista indicado no existe.");
             }
 
-            foreach (DetallePlantilla detalle in _detalleRepositorio.ObtenerPorPlantillaId(plantillaId))
+            var detalles = _detalleRepositorio.ObtenerPorPlantillaId(plantillaId)?.ToList() ?? new List<DetallePlantilla>();
+
+            if (detalles.Any(d => d.FutbolistaId == futbolistaId))
             {
-                if (detalle.FutbolistaId == futbolistaId)
+                throw new ReglaNegocioException("El futbolista ya se encuentra en la plantilla.");
+            }
+
+            int limiteJugadores = plantilla.CantidadMaximaJugadores > 0 ? plantilla.CantidadMaximaJugadores : Constantes.MaxJugadoresPlantilla;
+            if (detalles.Count >= limiteJugadores)
+            {
+                throw new ReglaNegocioException("La plantilla ya tiene el maximo de " + limiteJugadores + " jugadores.");
+            }
+
+            decimal presupuestoMaximo = plantilla.PresupuestoMaximo > 0 ? plantilla.PresupuestoMaximo : Constantes.PresupuestoMaximoPlantilla;
+            decimal gastoActual = 0m;
+            foreach (var d in detalles)
+            {
+                var f = _futbolistaRepositorio.ObtenerPorId(d.FutbolistaId);
+                if (f != null)
                 {
-                    throw new ReglaNegocioException("El futbolista ya esta en la plantilla.");
+                    gastoActual += f.Cotizacion;
                 }
             }
 
-            //int cantidadJugadores = _detalleRepositorio.ContarJugadoresEnPlantilla(plantillaId);
-            //if (cantidadJugadores >= plantilla.CantidadMaximaJugadores)
-            //{
-            //    throw new ReglaNegocioException("La plantilla ya tiene el maximo de " + plantilla.CantidadMaximaJugadores + " jugadores.");
-            //}
+            if (gastoActual + futbolista.Cotizacion > presupuestoMaximo)
+            {
+                throw new ReglaNegocioException("El presupuesto maximo de la plantilla ha sido superado.");
+            }
 
-            DetallePlantilla nuevo = new DetallePlantilla();
-            nuevo.PlantillaId = plantillaId;
-            nuevo.FutbolistaId = futbolistaId;
-            nuevo.EsTitular = esTitular;
+            DetallePlantilla nuevo = new DetallePlantilla
+            {
+                PlantillaId = plantillaId,
+                FutbolistaId = futbolistaId,
+                EsTitular = esTitular
+            };
             _detalleRepositorio.AgregarJugador(nuevo);
         }
 
