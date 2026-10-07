@@ -15,7 +15,7 @@ namespace GranDT_ET12.Tests.Repositorios
         }
 
         [Fact]
-        public void ObtenerTodos_DevuelveEquipos()
+        public void Test1_ObtenerTodos_DevuelveEquipos()
         {
             var resultado = _repo.ObtenerTodos();
 

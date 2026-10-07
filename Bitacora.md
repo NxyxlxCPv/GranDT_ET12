@@ -1,31 +1,19 @@
-Bitácora de Desarrollo: Gran DT
+-- Bitacora 
 
-- Lunes 7 y Martes 8 de Septiembre de 2026
-Planteamiento del proyecto Gran DT y definición de reglas de negocio principales.
+Análisis y Diseño Inicial
+7 y 8 de septiembre de 2026: Elaboración y diseño de los diagramas del sistema (Diagramas de Casos de Uso, Clases UML, Diagramas de Secuencia) y análisis metodológico de los requerimientos del software.
 
-Diseños conceptuales de las entidades del dominio y creación de Constantes.cs.
+Planificación y Estructura del Repositorio
+10 de septiembre de 2026: Creación de los archivos iniciales del repositorio (configuración de .gitignore y .gitattributes) y adición de los archivos base del proyecto en la solución.
 
-- Lunes 14 y Martes 15 de Septiembre de 2026
-Elaboración del DER en MySQL Workbench y definición de tipos de datos (DECIMAL(10,2) para cotizaciones).
+21 de septiembre de 2026: Estructuración inicial del proyecto agregando las carpetas principales para modelos, servicios y repositorios con sus respectivas subcarpetas.
 
-Creación de las clases modelo en C# dentro del proyecto Core (/Models).
+Interfaces y Conexión de Datos
+28 de septiembre de 2026: Implementación del código correspondiente a las interfaces de los repositorios.
 
-- Lunes 21 y Martes 22 de Septiembre de 2026
-Implementación de seguridad con la interfaz IEncriptador y el algoritmo SHA-256.
+29 de septiembre de 2026: Configuración e integración de la conexión con la base de datos.
 
-Programación de triggers en MySQL (BIFlimit, BITlimit, befInsPuntuacionChk, BIDetallePlantillaLimite).
+Desarrollo de APIs, Pruebas y Lógica
+30 de septiembre de 2026: Creación de las APIs del sistema y adición de comentarios en el código. Creación y actualización de las primeras pruebas unitarias.
 
-- Lunes 28 y Martes 29 de Septiembre de 2026
-Desarrollo de la persistencia de datos mediante Repositorios usando Dapper.
-
-Creación de la capa de servicios (/Services) con validaciones de presupuesto y ReglaNegocioException.
-
-- Jueves 1 de Octubre de 2026
-Configuración de la Minimal API, Controllers y documentación interactiva con Swagger.
-
-Desarrollo de Pruebas Unitarias para Controladores y Servicios utilizando Mocks en xUnit.
-
-- Lunes 5 de Octubre de 2026 (Cierre)
-Organización física del repositorio: creación de README.md, carpeta /doc y carpeta /scripts (archivos 00 al 04).
-
-Implementación y corrección final de las Pruebas de Integración para los Repositorios con xUnit.
+5 de octubre de 2026: Modificación y optimización de los repositorios y servicios. Incorporación de la carpeta de documentos, scripts y los tests correspondientes a los repositorios y servicios de equipos y futbolistas. Adición de tests para servicios y repositorios de plantillas, junto con la gestión y depuración de scripts de procedimientos almacenados.
