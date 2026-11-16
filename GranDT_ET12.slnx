@@ -1,4 +1,10 @@
 <Solution>
+  <Folder Name="/Actividad 1/">
+    <File Path="README.md" />
+    <File Path="doc/restauracion.md" />
+    <File Path="backup/torneo.sql" />
+    <File Path="scripts/02_usuarios.sql" />
+  </Folder>
   <Folder Name="/Doc/">
     <File Path="../../Users/nvcha/OneDrive/Imágenes/Screenshots/DER_GranDT.png" />
     <File Path="../../Users/nvcha/OneDrive/Imágenes/Screenshots/Diagrama de Interfaces con sus repos_GranDT.png" />
@@ -7,9 +13,6 @@
     <File Path="Contraste.md" />
     <File Path="Contrato_API.md" />
     <File Path="Hipotesis.md" />
-  </Folder>
-  <Folder Name="/Nuestros datos/">
-    <File Path="README.md" />
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path="scripts/00 DDL.sql" />

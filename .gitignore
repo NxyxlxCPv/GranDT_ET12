@@ -256,6 +256,8 @@ Generated_Code/
 # because we have git ;-)
 _UpgradeReport_Files/
 Backup*/
+# El respaldo de la base del proyecto debe versionarse
+!backup/
 UpgradeLog*.XML
 UpgradeLog*.htm
 ServiceFabricBackup/
