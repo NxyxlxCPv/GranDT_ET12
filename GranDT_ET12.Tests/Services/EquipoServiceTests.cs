@@ -22,7 +22,7 @@ namespace GranDT_ET12.Tests.Services
         #region Casos de Creación (Crear)
 
         [Fact]
-        public void Crear_EquipoValido_DevuelveIdGenerado()
+        public void T1_Crear_EquipoValido_DevuelveIdGenerado()
         {
             // Arrange
             var nuevoEquipo = new Equipo { Nombre = "Boca Juniors" };
@@ -48,7 +48,7 @@ namespace GranDT_ET12.Tests.Services
         }
 
         [Fact]
-        public void Crear_NombreDuplicadoMismoTexto_LanzaReglaNegocioException()
+        public void T2_Crear_NombreDuplicadoMismoTexto_LanzaReglaNegocioException()
         {
             // Arrange: Simulamos que ya existe un equipo con el mismo nombre (ignora mayúsculas y minúsculas)
             var listaExistente = new List<Equipo>
@@ -74,7 +74,7 @@ namespace GranDT_ET12.Tests.Services
         #region Casos de Consulta (ObtenerPorId / ObtenerTodos)
 
         [Fact]
-        public void ObtenerPorId_IdExistente_DevuelveEquipo()
+        public void T3_ObtenerPorId_IdExistente_DevuelveEquipo()
         {
             // Arrange
             int idExistente = 5;
@@ -94,7 +94,7 @@ namespace GranDT_ET12.Tests.Services
         }
 
         [Fact]
-        public void ObtenerTodos_ExistenEquipos_DevuelveColeccionCompleta()
+        public void T4_ObtenerTodos_ExistenEquipos_DevuelveColeccionCompleta()
         {
             // Arrange
             var equiposEsperados = new List<Equipo>

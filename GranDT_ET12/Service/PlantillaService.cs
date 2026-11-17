@@ -1,11 +1,10 @@
-using GranDT_ET12.Service.interfaces;
 using GranDT_ET12.Configuracion;
 using GranDT_ET12.Modelos;
 using GranDT_ET12.Repositorios.interfaces;
 
 namespace GranDT_ET12.Service
 {
-    public class PlantillaService : IPlantillaService
+    public class PlantillaService
     {
         private readonly IPlantillaRepositorio _plantillaRepositorio;
         private readonly IDetallePlantillaRepositorio _detalleRepositorio;
@@ -25,7 +24,7 @@ namespace GranDT_ET12.Service
         }
 
         // Crea una plantilla vacia para el usuario. Devuelve el Id nuevo.
-        public int Crear(int usuarioId)
+        public virtual int Crear(int usuarioId)
         {
             if (_usuarioRepositorio.ObtenerPorId(usuarioId) == null)
             {
@@ -44,7 +43,7 @@ namespace GranDT_ET12.Service
             return _plantillaRepositorio.ObtenerPorId(id);
         }
 
-        public IEnumerable<Plantilla> ObtenerPorUsuario(int usuarioId)
+        public virtual IEnumerable<Plantilla> ObtenerPorUsuario(int usuarioId)
         {
             return _plantillaRepositorio.ObtenerPorUsuarioId(usuarioId);
         }

@@ -28,7 +28,7 @@ namespace GranDT_ET12.Tests.Services
         #region Casos de Creación (Crear)
 
         [Fact]
-        public void Crear_FutbolistaValido_DevuelveIdGenerado()
+        public void T1_Crear_FutbolistaValido_DevuelveIdGenerado()
         {
             // Arrange
             var futbolista = new Futbolista
@@ -63,7 +63,7 @@ namespace GranDT_ET12.Tests.Services
         }
 
         [Fact]
-        public void Crear_EquipoNoExiste_LanzaReglaNegocioException()
+        public void T2_Crear_EquipoNoExiste_LanzaReglaNegocioException()
         {
             // Arrange
             var futbolista = new Futbolista
@@ -90,7 +90,7 @@ namespace GranDT_ET12.Tests.Services
         #region Casos de Consulta y Filtrado
 
         [Fact]
-        public void ObtenerPorId_FutbolistaExiste_DevuelveFutbolista()
+        public void T3_ObtenerPorId_FutbolistaExiste_DevuelveFutbolista()
         {
             // Arrange
             int idExistente = 7;
@@ -118,7 +118,7 @@ namespace GranDT_ET12.Tests.Services
         }
 
         [Fact]
-        public void ObtenerTodos_ExistenFutbolistas_DevuelveColeccionCompleta()
+        public void T4_ObtenerTodos_ExistenFutbolistas_DevuelveColeccionCompleta()
         {
             // Arrange
             var futbolistasEsperados = new List<Futbolista>
@@ -140,7 +140,7 @@ namespace GranDT_ET12.Tests.Services
         }
 
         [Fact]
-        public void ObtenerPorEquipo_ExistenFutbolistas_DevuelveFutbolistasDelEquipo()
+        public void T5_ObtenerPorEquipo_ExistenFutbolistas_DevuelveFutbolistasDelEquipo()
         {
             // Arrange
             int equipoId = 2;

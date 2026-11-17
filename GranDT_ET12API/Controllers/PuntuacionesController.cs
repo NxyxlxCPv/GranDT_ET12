@@ -1,6 +1,5 @@
 using GranDT_ET12.Modelos;
 using GranDT_ET12.Service;
-using GranDT_ET12.Service.interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GranDT_ET12API.Controllers
@@ -9,9 +8,9 @@ namespace GranDT_ET12API.Controllers
     [Route("puntuaciones")]
     public class PuntuacionesController : ControllerBase
     {
-        private IPuntuacionService _puntuacionService;
+        private PuntuacionService _puntuacionService;
 
-        public PuntuacionesController(IPuntuacionService puntuacionService)
+        public PuntuacionesController(PuntuacionService puntuacionService)
         {
             _puntuacionService = puntuacionService;
         }

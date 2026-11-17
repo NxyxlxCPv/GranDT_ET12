@@ -1,6 +1,5 @@
 using GranDT_ET12.Modelos;
 using GranDT_ET12.Service;
-using GranDT_ET12.Service.interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GranDT_ET12API.Controllers
@@ -9,9 +8,9 @@ namespace GranDT_ET12API.Controllers
     [Route("futbolistas")]
     public class FutbolistasController : ControllerBase
     {
-        private IFutbolistaService _futbolistaService;
+        private FutbolistaService _futbolistaService;
 
-        public FutbolistasController(IFutbolistaService futbolistaService)
+        public FutbolistasController(FutbolistaService futbolistaService)
         {
             _futbolistaService = futbolistaService;
         }

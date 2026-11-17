@@ -1,7 +1,6 @@
 using GranDT_ET12.Repositorios;
 using GranDT_ET12.Repositorios.interfaces;
 using GranDT_ET12.Service;
-using GranDT_ET12.Service.interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,12 +18,12 @@ builder.Services.AddScoped<IDetallePlantillaRepositorio>(x => new DetallePlantil
 builder.Services.AddScoped<IPuntuacionRepositorio>(x => new PuntuacionRepositorio(cadena));
 
 // Servicios (logica de negocio)
-builder.Services.AddScoped<ILoginService, LoginService>();
-builder.Services.AddScoped<IUsuarioService, UsuarioService>();
-builder.Services.AddScoped<IEquipoService, EquipoService>();
-builder.Services.AddScoped<IFutbolistaService, FutbolistaService>();
-builder.Services.AddScoped<IPuntuacionService, PuntuacionService>();
-builder.Services.AddScoped<IPlantillaService, PlantillaService>();
+builder.Services.AddScoped<LoginService>();
+builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<EquipoService>();
+builder.Services.AddScoped<FutbolistaService>();
+builder.Services.AddScoped<PuntuacionService>();
+builder.Services.AddScoped<PlantillaService>();
 
 var app = builder.Build();
 

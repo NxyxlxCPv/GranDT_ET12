@@ -15,7 +15,7 @@ namespace GranDT_ET12.Tests.Repositorios
         }
 
         [Fact]
-        public void ObtenerTodos_DevuelveFutbolistas()
+        public void T1_ObtenerTodos_DevuelveFutbolistas()
         {
             var resultado = _repo.ObtenerTodos();
 
@@ -24,7 +24,7 @@ namespace GranDT_ET12.Tests.Repositorios
         }
 
         [Fact]
-        public void ObtenerPorId_FutbolistaExiste_DevuelveFutbolista()
+        public void T2_ObtenerPorId_FutbolistaExiste_DevuelveFutbolista()
         {
             var resultado = _repo.ObtenerPorId(1);
 
@@ -33,7 +33,7 @@ namespace GranDT_ET12.Tests.Repositorios
         }
 
         [Fact]
-        public void ObtenerPorId_FutbolistaNoExiste_DevuelveNull()
+        public void T3_ObtenerPorId_FutbolistaNoExiste_DevuelveNull()
         {
             var resultado = _repo.ObtenerPorId(-1);
 
@@ -41,7 +41,7 @@ namespace GranDT_ET12.Tests.Repositorios
         }
 
         [Fact]
-        public void ObtenerPorEquipo_DevuelveFutbolistas()
+        public void T4_ObtenerPorEquipo_DevuelveFutbolistas()
         {
             var resultado = _repo.ObtenerPorEquipo(1);
 
@@ -50,7 +50,7 @@ namespace GranDT_ET12.Tests.Repositorios
         }
 
         [Fact]
-        public void ObtenerPorPosicion_DevuelveFutbolistas()
+        public void T5_ObtenerPorPosicion_DevuelveFutbolistas()
         {
             var resultado = _repo.ObtenerPorPosicion("Arquero");
 

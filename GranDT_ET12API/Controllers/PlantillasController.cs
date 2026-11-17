@@ -1,6 +1,5 @@
 using GranDT_ET12.Modelos;
 using GranDT_ET12.Service;
-using GranDT_ET12.Service.interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GranDT_ET12API.Controllers
@@ -9,9 +8,9 @@ namespace GranDT_ET12API.Controllers
     [Route("plantillas")]
     public class PlantillasController : ControllerBase
     {
-        private IPlantillaService _plantillaService;
+        private PlantillaService _plantillaService;
 
-        public PlantillasController(IPlantillaService plantillaService)
+        public PlantillasController(PlantillaService plantillaService)
         {
             _plantillaService = plantillaService;
         }

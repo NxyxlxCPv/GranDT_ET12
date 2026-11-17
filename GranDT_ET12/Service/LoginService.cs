@@ -1,11 +1,10 @@
-using GranDT_ET12.Service.interfaces;
 using GranDT_ET12.Modelos;
 using GranDT_ET12.Repositorios.interfaces;
 using GranDT_ET12.Seguridad;
 
 namespace GranDT_ET12.Service
 {
-    public class LoginService : ILoginService
+    public class LoginService
     {
         private IUsuarioRepositorio _usuarioRepositorio;
 
@@ -15,7 +14,7 @@ namespace GranDT_ET12.Service
         }
 
         // Devuelve el usuario si el email y la contraseña son correctos, sino devuelve null
-        public Usuario? Login(string email, string password)
+        public virtual Usuario? Login(string email, string password)
         {
             if (email == "" || password == "")
             {

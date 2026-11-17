@@ -1,4 +1,3 @@
-using GranDT_ET12.Service.interfaces;
 using System;
 using GranDT_ET12.Configuracion;
 using GranDT_ET12.Modelos;
@@ -6,7 +5,7 @@ using GranDT_ET12.Repositorios.interfaces;
 
 namespace GranDT_ET12.Service
 {
-    public class EquipoService : IEquipoService
+    public class EquipoService
     {
         private IEquipoRepositorio _equipoRepositorio;
 
@@ -15,7 +14,7 @@ namespace GranDT_ET12.Service
             _equipoRepositorio = equipoRepositorio;
         }
 
-        public int Crear(Equipo equipo)
+        public virtual int Crear(Equipo equipo)
         {
             if (string.IsNullOrEmpty(equipo.Nombre))
                throw new ReglaNegocioException("El nombre del equipo es obligatorio.");
@@ -42,9 +41,9 @@ namespace GranDT_ET12.Service
             return _equipoRepositorio.InsertarEquipo(equipo);
         }
 
-        public Equipo? ObtenerPorId(int id) => _equipoRepositorio.ObtenerPorId(id);
+        public virtual Equipo? ObtenerPorId(int id) => _equipoRepositorio.ObtenerPorId(id);
 
-        public IEnumerable<Equipo> ObtenerTodos()
+        public virtual IEnumerable<Equipo> ObtenerTodos()
         {
             return _equipoRepositorio.ObtenerTodos();
         }

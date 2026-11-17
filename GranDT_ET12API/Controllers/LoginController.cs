@@ -1,6 +1,5 @@
 using GranDT_ET12.Modelos;
 using GranDT_ET12.Service;
-using GranDT_ET12.Service.interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GranDT_ET12API.Controllers
@@ -9,9 +8,9 @@ namespace GranDT_ET12API.Controllers
     [Route("login")]
     public class LoginController : ControllerBase
     {
-        private ILoginService _loginService;
+        private LoginService _loginService;
 
-        public LoginController(ILoginService loginService)
+        public LoginController(LoginService loginService)
         {
             _loginService = loginService;
         }

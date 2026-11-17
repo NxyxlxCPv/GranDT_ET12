@@ -15,7 +15,7 @@ namespace GranDT_ET12.Tests.Repositorios
         }
 
         [Fact]
-        public void CrearPlantilla_PlantillaValida_DevuelveIdGenerado()
+        public void T1_CrearPlantilla_PlantillaValida_DevuelveIdGenerado()
         {
             var plantilla = new Plantilla
             {
@@ -30,7 +30,7 @@ namespace GranDT_ET12.Tests.Repositorios
         }
 
         [Fact]
-        public void ObtenerPorId_PlantillaExiste_DevuelvePlantilla()
+        public void T2_ObtenerPorId_PlantillaExiste_DevuelvePlantilla()
         {
             var plantilla = new Plantilla
             {
@@ -48,7 +48,7 @@ namespace GranDT_ET12.Tests.Repositorios
         }
 
         [Fact]
-        public void ObtenerPorId_PlantillaNoExiste_DevuelveNull()
+        public void T3_ObtenerPorId_PlantillaNoExiste_DevuelveNull()
         {
             var resultado = _repo.ObtenerPorId(-1);
 
@@ -56,7 +56,7 @@ namespace GranDT_ET12.Tests.Repositorios
         }
 
         [Fact]
-        public void ObtenerPorUsuarioId_DevuelvePlantillasDelUsuario()
+        public void T4_ObtenerPorUsuarioId_DevuelvePlantillasDelUsuario()
         {
             var resultado = _repo.ObtenerPorUsuarioId(1);
 

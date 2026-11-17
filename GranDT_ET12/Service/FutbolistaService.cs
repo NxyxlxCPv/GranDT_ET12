@@ -1,11 +1,10 @@
-using GranDT_ET12.Service.interfaces;
 using GranDT_ET12.Configuracion;
 using GranDT_ET12.Modelos;
 using GranDT_ET12.Repositorios.interfaces;
 
 namespace GranDT_ET12.Service
 {
-    public class FutbolistaService : IFutbolistaService
+    public class FutbolistaService
     {
         private IFutbolistaRepositorio _futbolistaRepositorio;
         private IEquipoRepositorio _equipoRepositorio;

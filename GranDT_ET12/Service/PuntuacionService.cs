@@ -1,11 +1,10 @@
-using GranDT_ET12.Service.interfaces;
 using GranDT_ET12.Configuracion;
 using GranDT_ET12.Modelos;
 using GranDT_ET12.Repositorios.interfaces;
 
 namespace GranDT_ET12.Service
 {
-    public class PuntuacionService : IPuntuacionService
+    public class PuntuacionService
     {
         private IPuntuacionRepositorio _puntuacionRepositorio;
         private IFutbolistaRepositorio _futbolistaRepositorio;
@@ -16,7 +15,7 @@ namespace GranDT_ET12.Service
             _futbolistaRepositorio = futbolistaRepositorio;
         }
 
-        public int Cargar(PuntuacionFecha puntuacion)
+        public virtual int Cargar(PuntuacionFecha puntuacion)
         {
             if (puntuacion.NumeroFecha < Constantes.FechaMinima || puntuacion.NumeroFecha > Constantes.FechaMaxima)
             {
@@ -38,12 +37,12 @@ namespace GranDT_ET12.Service
             return _puntuacionRepositorio.InsertarPuntuacion(puntuacion);
         }
 
-        public IEnumerable<PuntuacionFecha> ObtenerPorFutbolista(int futbolistaId)
+        public virtual IEnumerable<PuntuacionFecha> ObtenerPorFutbolista(int futbolistaId)
         {
             return _puntuacionRepositorio.ObtenerPuntuacionesPorFutbolista(futbolistaId);
         }
 
-        public IEnumerable<PuntuacionFecha> ObtenerPorFecha(int numeroFecha)
+        public virtual IEnumerable<PuntuacionFecha> ObtenerPorFecha(int numeroFecha)
         {
             return _puntuacionRepositorio.ObtenerPuntuacionesPorFecha(numeroFecha);
         }

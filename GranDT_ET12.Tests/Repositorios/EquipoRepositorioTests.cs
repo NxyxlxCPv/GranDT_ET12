@@ -15,7 +15,7 @@ namespace GranDT_ET12.Tests.Repositorios
         }
 
         [Fact]
-        public void Test1_ObtenerTodos_DevuelveEquipos()
+        public void T1_Test1_ObtenerTodos_DevuelveEquipos()
         {
             var resultado = _repo.ObtenerTodos();
 
@@ -24,7 +24,7 @@ namespace GranDT_ET12.Tests.Repositorios
         }
 
         [Fact]
-        public void ObtenerPorId_EquipoExiste_DevuelveEquipo()
+        public void T2_ObtenerPorId_EquipoExiste_DevuelveEquipo()
         {
             var resultado = _repo.ObtenerPorId(1);
 
@@ -33,7 +33,7 @@ namespace GranDT_ET12.Tests.Repositorios
         }
 
         [Fact]
-        public void ObtenerPorId_EquipoNoExiste_DevuelveNull()
+        public void T3_ObtenerPorId_EquipoNoExiste_DevuelveNull()
         {
             var resultado = _repo.ObtenerPorId(-1);
 

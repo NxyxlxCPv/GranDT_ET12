@@ -33,7 +33,7 @@ namespace GranDT_ET12.Tests.Services
         #region Reglas de Negocio - Agregar Jugador
 
         [Fact]
-        public void AgregarJugador_FutbolistaYaExisteEnPlantilla_LanzaReglaNegocioException()
+        public void T1_AgregarJugador_FutbolistaYaExisteEnPlantilla_LanzaReglaNegocioException()
         {
             // Arrange
             int plantillaId = 1;
@@ -77,7 +77,7 @@ namespace GranDT_ET12.Tests.Services
         }
 
         [Fact]
-        public void AgregarJugador_PlantillaNoExiste_LanzaReglaNegocioException()
+        public void T2_AgregarJugador_PlantillaNoExiste_LanzaReglaNegocioException()
         {
             // Arrange
             int plantillaId = 999;
@@ -96,7 +96,7 @@ namespace GranDT_ET12.Tests.Services
         }
 
         [Fact]
-        public void AgregarJugador_FutbolistaNoExiste_LanzaReglaNegocioException()
+        public void T3_AgregarJugador_FutbolistaNoExiste_LanzaReglaNegocioException()
         {
             // Arrange
             int plantillaId = 1;
@@ -118,7 +118,7 @@ namespace GranDT_ET12.Tests.Services
         }
 
         [Fact]
-        public void AgregarJugador_SuperaLimiteMaximoJugadores_LanzaReglaNegocioException()
+        public void T4_AgregarJugador_SuperaLimiteMaximoJugadores_LanzaReglaNegocioException()
         {
             // Arrange
             int plantillaId = 1;
@@ -162,7 +162,7 @@ namespace GranDT_ET12.Tests.Services
         }
 
         [Fact]
-        public void AgregarJugador_SuperaPresupuestoMaximo_LanzaReglaNegocioException()
+        public void T5_AgregarJugador_SuperaPresupuestoMaximo_LanzaReglaNegocioException()
         {
             // Arrange
             int plantillaId = 1;
@@ -214,7 +214,7 @@ namespace GranDT_ET12.Tests.Services
         }
 
         [Fact]
-        public void AgregarJugador_DatosValidos_AgregaExitosamente()
+        public void T6_AgregarJugador_DatosValidos_AgregaExitosamente()
         {
             // Arrange
             int plantillaId = 1;
@@ -258,7 +258,7 @@ namespace GranDT_ET12.Tests.Services
         #region Casos de Creación y Consulta
 
         [Fact]
-        public void Crear_UsuarioExiste_DevuelveIdNuevaPlantilla()
+        public void T7_Crear_UsuarioExiste_DevuelveIdNuevaPlantilla()
         {
             // Arrange
             int usuarioId = 3;
@@ -281,7 +281,7 @@ namespace GranDT_ET12.Tests.Services
         }
 
         [Fact]
-        public void Crear_UsuarioNoExiste_LanzaReglaNegocioException()
+        public void T8_Crear_UsuarioNoExiste_LanzaReglaNegocioException()
         {
             // Arrange
             int usuarioId = 999;
@@ -296,7 +296,7 @@ namespace GranDT_ET12.Tests.Services
         }
 
         [Fact]
-        public void QuitarJugador_LlamaRepositorioCorrectamente()
+        public void T9_QuitarJugador_LlamaRepositorioCorrectamente()
         {
             // Arrange
             int plantillaId = 1;
@@ -313,7 +313,7 @@ namespace GranDT_ET12.Tests.Services
         }
 
         [Fact]
-        public void ObtenerDetalle_DevuelveListaDeDetalles()
+        public void T10_ObtenerDetalle_DevuelveListaDeDetalles()
         {
             // Arrange
             int plantillaId = 1;

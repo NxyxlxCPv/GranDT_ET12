@@ -1,4 +1,3 @@
-using GranDT_ET12.Service.interfaces;
 using GranDT_ET12.Configuracion;
 using GranDT_ET12.Modelos;
 using GranDT_ET12.Repositorios.interfaces;
@@ -6,7 +5,7 @@ using GranDT_ET12.Seguridad;
 
 namespace GranDT_ET12.Service
 {
-    public class UsuarioService : IUsuarioService
+    public class UsuarioService
     {
         private IUsuarioRepositorio _usuarioRepositorio;
 
@@ -16,7 +15,7 @@ namespace GranDT_ET12.Service
         }
 
         // Recibe la contraseña sin encriptar, la encripta y guarda el usuario. Devuelve el Id nuevo.
-        public int Registrar(Usuario usuario, string passwordSinEncriptar)
+        public virtual int Registrar(Usuario usuario, string passwordSinEncriptar)
         {
             if (usuario.Nombre == "" || usuario.Apellido == "")
             {
@@ -46,12 +45,12 @@ namespace GranDT_ET12.Service
             return _usuarioRepositorio.InsertarUsuario(usuario);
         }
 
-        public Usuario? ObtenerPorId(int id)
+        public virtual Usuario? ObtenerPorId(int id)
         {
             return _usuarioRepositorio.ObtenerPorId(id);
         }
 
-        public IEnumerable<Usuario> ObtenerTodos()
+        public virtual IEnumerable<Usuario> ObtenerTodos()
         {
             return _usuarioRepositorio.ObtenerTodos();
         }

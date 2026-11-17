@@ -1,6 +1,5 @@
 using GranDT_ET12.Modelos;
 using GranDT_ET12.Service;
-using GranDT_ET12.Service.interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GranDT_ET12API.Controllers
@@ -9,10 +8,10 @@ namespace GranDT_ET12API.Controllers
     [Route("usuarios")]
     public class UsuariosController : ControllerBase
     {
-        private IUsuarioService _usuarioService;
-        private IPlantillaService _plantillaService;
+        private UsuarioService _usuarioService;
+        private PlantillaService _plantillaService;
 
-        public UsuariosController(IUsuarioService usuarioService, IPlantillaService plantillaService)
+        public UsuariosController(UsuarioService usuarioService, PlantillaService plantillaService)
         {
             _usuarioService = usuarioService;
             _plantillaService = plantillaService;

@@ -1,6 +1,5 @@
 using GranDT_ET12.Modelos;
 using GranDT_ET12.Service;
-using GranDT_ET12.Service.interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GranDT_ET12API.Controllers
@@ -9,9 +8,9 @@ namespace GranDT_ET12API.Controllers
     [Route("equipos")]
     public class EquiposController : ControllerBase
     {
-        private IEquipoService _equipoService;
+        private EquipoService _equipoService;
 
-        public EquiposController(IEquipoService equipoService)
+        public EquiposController(EquipoService equipoService)
         {
             _equipoService = equipoService;
         }

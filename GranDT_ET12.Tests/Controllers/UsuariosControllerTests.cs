@@ -1,6 +1,6 @@
 using GranDT_ET12.Modelos;
+using GranDT_ET12.Repositorios.interfaces;
 using GranDT_ET12.Service;
-using GranDT_ET12.Service.interfaces;
 using GranDT_ET12API.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -9,14 +9,18 @@ namespace GranDT_ET12.Tests.Controllers
 {
     public class UsuariosControllerTests
     {
-        private Mock<IUsuarioService> _usuarioServicioFalso;
-        private Mock<IPlantillaService> _plantillaServicioFalso;
+        private Mock<UsuarioService> _usuarioServicioFalso;
+        private Mock<PlantillaService> _plantillaServicioFalso;
         private UsuariosController _controlador;
 
         public UsuariosControllerTests()
         {
-            _usuarioServicioFalso = new Mock<IUsuarioService>();
-            _plantillaServicioFalso = new Mock<IPlantillaService>();
+            _usuarioServicioFalso = new Mock<UsuarioService>(Mock.Of<IUsuarioRepositorio>());
+            _plantillaServicioFalso = new Mock<PlantillaService>(
+                Mock.Of<IPlantillaRepositorio>(),
+                Mock.Of<IDetallePlantillaRepositorio>(),
+                Mock.Of<IUsuarioRepositorio>(),
+                Mock.Of<IFutbolistaRepositorio>());
             _controlador = new UsuariosController(_usuarioServicioFalso.Object, _plantillaServicioFalso.Object);
         }
 
@@ -35,7 +39,7 @@ namespace GranDT_ET12.Tests.Controllers
         // ---------- Registrar ----------
 
         [Fact]
-        public void Registrar_DatosValidos_DevuelveOkConElId()
+        public void T1_Registrar_DatosValidos_DevuelveOkConElId()
         {
             _usuarioServicioFalso.Setup(s => s.Registrar(It.IsAny<Usuario>(), "1234")).Returns(7);
 
@@ -46,7 +50,7 @@ namespace GranDT_ET12.Tests.Controllers
         }
 
         [Fact]
-        public void Registrar_SiempreCreaUsuarioComun_NuncaAdministrador()
+        public void T2_Registrar_SiempreCreaUsuarioComun_NuncaAdministrador()
         {
             Usuario? usuarioEnviado = null;
             _usuarioServicioFalso.Setup(s => s.Registrar(It.IsAny<Usuario>(), It.IsAny<string>()))
@@ -62,7 +66,7 @@ namespace GranDT_ET12.Tests.Controllers
         }
 
         [Fact]
-        public void Registrar_EmailDuplicado_DevuelveBadRequest()
+        public void T3_Registrar_EmailDuplicado_DevuelveBadRequest()
         {
             _usuarioServicioFalso.Setup(s => s.Registrar(It.IsAny<Usuario>(), It.IsAny<string>()))
                                  .Throws(new ReglaNegocioException("El email ya esta registrado."));
@@ -76,7 +80,7 @@ namespace GranDT_ET12.Tests.Controllers
         // ---------- Obtener ----------
 
         [Fact]
-        public void ObtenerTodos_DevuelveOkConLaLista()
+        public void T4_ObtenerTodos_DevuelveOkConLaLista()
         {
             List<Usuario> lista = new List<Usuario> { new Usuario { Id = 1 }, new Usuario { Id = 2 } };
             _usuarioServicioFalso.Setup(s => s.ObtenerTodos()).Returns(lista);
@@ -88,7 +92,7 @@ namespace GranDT_ET12.Tests.Controllers
         }
 
         [Fact]
-        public void ObtenerPorId_UsuarioExiste_DevuelveOk()
+        public void T5_ObtenerPorId_UsuarioExiste_DevuelveOk()
         {
             Usuario usuario = new Usuario { Id = 5 };
             _usuarioServicioFalso.Setup(s => s.ObtenerPorId(5)).Returns(usuario);
@@ -100,7 +104,7 @@ namespace GranDT_ET12.Tests.Controllers
         }
 
         [Fact]
-        public void ObtenerPorId_UsuarioNoExiste_DevuelveNotFound()
+        public void T6_ObtenerPorId_UsuarioNoExiste_DevuelveNotFound()
         {
             _usuarioServicioFalso.Setup(s => s.ObtenerPorId(99)).Returns((Usuario?)null);
 
@@ -112,7 +116,7 @@ namespace GranDT_ET12.Tests.Controllers
         // ---------- Plantillas del usuario ----------
 
         [Fact]
-        public void CrearPlantilla_Correcto_DevuelveOkConElId()
+        public void T7_CrearPlantilla_Correcto_DevuelveOkConElId()
         {
             _plantillaServicioFalso.Setup(s => s.Crear(3)).Returns(10);
 
@@ -123,7 +127,7 @@ namespace GranDT_ET12.Tests.Controllers
         }
 
         [Fact]
-        public void CrearPlantilla_ReglaDeNegocioFalla_DevuelveBadRequest()
+        public void T8_CrearPlantilla_ReglaDeNegocioFalla_DevuelveBadRequest()
         {
             _plantillaServicioFalso.Setup(s => s.Crear(3)).Throws(new ReglaNegocioException("El usuario no existe."));
 
@@ -133,7 +137,7 @@ namespace GranDT_ET12.Tests.Controllers
         }
 
         [Fact]
-        public void ObtenerPlantillas_DevuelveOkConLasPlantillasDelUsuario()
+        public void T9_ObtenerPlantillas_DevuelveOkConLasPlantillasDelUsuario()
         {
             List<Plantilla> plantillas = new List<Plantilla> { new Plantilla() };
             _plantillaServicioFalso.Setup(s => s.ObtenerPorUsuario(3)).Returns(plantillas);

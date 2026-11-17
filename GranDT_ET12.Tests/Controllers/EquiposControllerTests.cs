@@ -1,6 +1,6 @@
 using GranDT_ET12.Modelos;
+using GranDT_ET12.Repositorios.interfaces;
 using GranDT_ET12.Service;
-using GranDT_ET12.Service.interfaces;
 using GranDT_ET12API.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -9,19 +9,19 @@ namespace GranDT_ET12.Tests.Controllers
 {
     public class EquiposControllerTests
     {
-        private Mock<IEquipoService> _servicioFalso;
+        private Mock<EquipoService> _servicioFalso;
         private EquiposController _controlador;
 
         public EquiposControllerTests()
         {
-            _servicioFalso = new Mock<IEquipoService>();
+            _servicioFalso = new Mock<EquipoService>(Mock.Of<IEquipoRepositorio>());
             _controlador = new EquiposController(_servicioFalso.Object);
         }
 
         // ---------- Crear ----------
 
         [Fact]
-        public void Crear_DatosValidos_DevuelveOkConElId()
+        public void T1_Crear_DatosValidos_DevuelveOkConElId()
         {
             _servicioFalso.Setup(s => s.Crear(It.IsAny<Equipo>())).Returns(4);
             Equipo equipo = new Equipo { Nombre = "Boca" };
@@ -33,7 +33,7 @@ namespace GranDT_ET12.Tests.Controllers
         }
 
         [Fact]
-        public void Crear_ReglaDeNegocioFalla_DevuelveBadRequestConElMensaje()
+        public void T2_Crear_ReglaDeNegocioFalla_DevuelveBadRequestConElMensaje()
         {
             _servicioFalso.Setup(s => s.Crear(It.IsAny<Equipo>()))
                           .Throws(new ReglaNegocioException("Se alcanzo el maximo de equipos."));
@@ -47,7 +47,7 @@ namespace GranDT_ET12.Tests.Controllers
         // ---------- Obtener ----------
 
         [Fact]
-        public void ObtenerTodos_DevuelveOkConLaLista()
+        public void T3_ObtenerTodos_DevuelveOkConLaLista()
         {
             List<Equipo> lista = new List<Equipo> { new Equipo { Id = 1 }, new Equipo { Id = 2 } };
             _servicioFalso.Setup(s => s.ObtenerTodos()).Returns(lista);
@@ -59,7 +59,7 @@ namespace GranDT_ET12.Tests.Controllers
         }
 
         [Fact]
-        public void ObtenerPorId_EquipoExiste_DevuelveOk()
+        public void T4_ObtenerPorId_EquipoExiste_DevuelveOk()
         {
             Equipo equipo = new Equipo { Id = 5, Nombre = "River" };
             _servicioFalso.Setup(s => s.ObtenerPorId(5)).Returns(equipo);
@@ -71,7 +71,7 @@ namespace GranDT_ET12.Tests.Controllers
         }
 
         [Fact]
-        public void ObtenerPorId_EquipoNoExiste_DevuelveNotFound()
+        public void T5_ObtenerPorId_EquipoNoExiste_DevuelveNotFound()
         {
             _servicioFalso.Setup(s => s.ObtenerPorId(99)).Returns((Equipo?)null);
 
