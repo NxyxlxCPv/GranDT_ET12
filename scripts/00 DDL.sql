@@ -1,4 +1,5 @@
-CREATE DATABASE IF NOT EXISTS GranDT_ET12;
+DROP DATABASE IF EXISTS GranDT_ET12 ;
+CREATE DATABASE GranDT_ET12 CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 USE GranDT_ET12;
 
 -- 1. Tabla de Usuarios (Soporta hasta 2000 usuarios, password fija de 64 caracteres)
